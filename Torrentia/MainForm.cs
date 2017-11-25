@@ -56,6 +56,22 @@ namespace Torrentia
             }
         }
 
+        private void SaveWindowState()
+        {
+            Options.CurrentOptions.WindowState = this.WindowState;
+           
+            if (this.WindowState == FormWindowState.Normal)
+            {
+                Options.CurrentOptions.WindowLocation = this.Location;
+                Options.CurrentOptions.WindowSize = this.Size;
+            }
+            else
+            {
+                Options.CurrentOptions.WindowLocation = this.RestoreBounds.Location;
+                Options.CurrentOptions.WindowSize = this.RestoreBounds.Size;
+            }
+        }
+
         private void StartSearching()
         {
             if (!string.IsNullOrEmpty(txtSearch.Text))
@@ -176,20 +192,7 @@ namespace Torrentia
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            // save window state
-            Options.CurrentOptions.WindowState = this.WindowState;
-           
-            if (this.WindowState == FormWindowState.Normal)
-            {
-                Options.CurrentOptions.WindowLocation = this.Location;
-                Options.CurrentOptions.WindowSize = this.Size;
-            }
-            else
-            {
-                Options.CurrentOptions.WindowLocation = this.RestoreBounds.Location;
-                Options.CurrentOptions.WindowSize = this.RestoreBounds.Size;
-            }
-
+            SaveWindowState();
             Options.SaveSettings();
         }
 

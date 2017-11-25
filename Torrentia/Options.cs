@@ -144,6 +144,12 @@ namespace Torrentia
             else
             {
                 CurrentOptions = JsonConvert.DeserializeObject<SettingsJson>(File.ReadAllText(SettingsFile));
+
+                if (CurrentOptions.WindowSize.IsEmpty)
+                {
+                    CurrentOptions.WindowSize = new Size(1075, 686);
+                    SaveSettings();
+                }
             }
         }
     }
