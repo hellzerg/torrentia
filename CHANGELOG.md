@@ -2,6 +2,9 @@
 
 All notable changes to this project will be documented in this file.
 
+## [2.0] - 2017-11-29
+- Rare bug fix when updating app
+
 ## [1.9] - 2017-10-22
 - Keep window state added
 

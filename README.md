@@ -25,6 +25,6 @@ Does not work with Windows XP or Vista or Windows Server 2003
 
 ## Details: ##
 
-Latest version: 1.9
+Latest version: 2.0
 
-Released: October 22, 2017
+Released: November 29, 2017
