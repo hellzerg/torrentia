@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## [2.1] - 2017-12-31
+- New Download button
+- Copy Magnet URI removed, no longer provided by Torrentz2.eu
+- Hash is now available
+- General adaptations to Torrentz2.eu
+
 ## [2.0] - 2017-11-29
 - Rare bug fix when updating app
 

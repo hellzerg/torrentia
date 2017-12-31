@@ -27,6 +27,7 @@ namespace Torrentia
         public MainForm()
         {
             InitializeComponent();
+
             CheckForIllegalCrossThreadCalls = false;
             Options.ApplyTheme(this);
 
@@ -145,8 +146,6 @@ namespace Torrentia
 
         private void MainForm_Load(object sender, EventArgs e)
         {
-            CheckForIllegalCrossThreadCalls = false;
-
             RestoreWindowState();
 
             this.Text += Program.GetCurrentVersionToString();

@@ -9,6 +9,7 @@ namespace Torrentia
     public class SearchResult
     {
         public string Title { get; set; }
+        public string InfoHash { get; set; }
         public string Age { get; set; }
         public string Contents { get; set; }
         public string Verified { get; set; }

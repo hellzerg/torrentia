@@ -8,7 +8,7 @@ Simple torrentz2.eu scraper
 * Verified torrents only filter
 * Hide adult torrents filter
 * Get trackers list and torrent contents by double-clicking
-* Start downloading by double-clicking on your desired tracker
+* Download available
 
 ## Downloads: ##
 https://github.com/hellzerg/torrentia/releases
@@ -25,6 +25,6 @@ Does not work with Windows XP or Vista or Windows Server 2003
 
 ## Details: ##
 
-Latest version: 2.0
+Latest version: 2.1
 
-Released: November 29, 2017
+Released: December 31, 2017

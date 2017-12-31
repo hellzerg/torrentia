@@ -25,7 +25,7 @@ namespace Torrentia
         SearchResult SearchResult;
         List<string> torrentDates;
         List<string> torrentLinks;
-        List<string> trackerLinks;
+        //List<string> trackerLinks;
         string _TorrentTitle = string.Empty;
         string _TorrentContents = string.Empty;
         string _TorrentSize = string.Empty;
@@ -109,19 +109,22 @@ namespace Torrentia
             return _SearchResults;
         }
 
-        private SearchResult GetSearchResult(string subUrl, string details)
+        private SearchResult GetSearchResult(string hash, string details)
         {
             string[] tmpArray = details.Split('|');
 
             SearchResult = new SearchResult();
+            SearchResult.Trackers = new List<string>();
             torrentDates = new List<string>();
             torrentLinks = new List<string>();
-            trackerLinks = new List<string>();
+            //trackerLinks = new List<string>();
             _TorrentTitle = string.Empty;
             _TorrentContents = string.Empty;
             _TorrentSize = string.Empty;
             _TorrentSeeders = string.Empty;
             _TorrentLeechers = string.Empty;
+
+            SearchResult.InfoHash = hash.Replace("/", string.Empty);
 
             if (tmpArray[0] == _VerifiedChar.ToString())
             {
@@ -136,10 +139,11 @@ namespace Torrentia
             _TorrentLeechers = tmpArray[4];
 
             _Document = new HtmlAgilityPack.HtmlDocument();
-            _Response = _Client.DownloadString(_BaseUrl + subUrl);
+            _Response = _Client.DownloadString(_BaseUrl + hash);
             _Document.LoadHtml(_Response);
 
             var downloadNode = _Document.DocumentNode.SelectSingleNode("//div[@class='downlinks']");
+            var trackersNode = _Document.DocumentNode.SelectSingleNode("//div[@class='trackers']");
             var filesNode = _Document.DocumentNode.SelectSingleNode("//div[@class='files']");
 
             if (downloadNode != null)
@@ -166,7 +170,7 @@ namespace Torrentia
                     foreach (var dt in dtNode)
                     {
                         var linkNode = dt.SelectNodes("//a[@href]");
-                        var siteNode = dt.SelectNodes("//span[@class='u']");
+                        //var siteNode = dt.SelectNodes("//span[@class='u']");
                         var nameNode = dt.SelectNodes("//span[@class='n']");
 
                         if (linkNode != null)
@@ -178,21 +182,22 @@ namespace Torrentia
                                     torrentLinks.Add(c.GetAttributeValue("href", string.Empty));
                                 }
                             }
-                            FilterResults(ref torrentLinks);
+                            //FilterResults(ref torrentLinks);
                         }
-                        if (siteNode != null)
-                        {
-                            foreach (var sn in siteNode)
-                            {
-                                if (!IsOnlyDigits(sn.InnerText))
-                                {
-                                    if (!trackerLinks.Contains(sn.InnerText))
-                                    {
-                                        trackerLinks.Add(sn.InnerText);
-                                    }
-                                }
-                            }
-                        }
+
+                        //if (siteNode != null)
+                        //{
+                        //    foreach (var sn in siteNode)
+                        //    {
+                        //        if (!IsOnlyDigits(sn.InnerText))
+                        //        {
+                        //            if (!trackerLinks.Contains(sn.InnerText))
+                        //            {
+                        //                trackerLinks.Add(sn.InnerText);
+                        //            }
+                        //        }
+                        //    }
+                        //}
                     }
                 }
 
@@ -201,12 +206,25 @@ namespace Torrentia
                 SearchResult.Links = torrentLinks;
                 SearchResult.Title = _TorrentTitle;
                 SearchResult.Dates.Remove(SearchResult.Dates.Last());
-                SearchResult.Dates.Remove(SearchResult.Dates.First());
-                SearchResult.Trackers = trackerLinks;
+                //SearchResult.Dates.Remove(SearchResult.Dates.First());
+                //SearchResult.Trackers = trackerLinks;
                 SearchResult.Leechers = _TorrentLeechers;
                 SearchResult.Seeders = _TorrentSeeders;
                 SearchResult.Size = _TorrentSize;
                 SearchResult.Verified = _TorrentVerified;
+            }
+
+            if (trackersNode != null)
+            {
+                var dtNodes = trackersNode.SelectNodes("//dt");
+
+                if (dtNodes != null)
+                {
+                    foreach (var dt in dtNodes)
+                    {
+                        SearchResult.Trackers.Add(dt.InnerText.Trim());
+                    }
+                }
             }
 
             if (filesNode != null)
