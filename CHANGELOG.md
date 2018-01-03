@@ -2,6 +2,9 @@
 
 All notable changes to this project will be documented in this file.
 
+## [2.2] - 2018-01-04
+- Fix: 'The remote name could not be resolved' error
+
 ## [2.1] - 2017-12-31
 - New Download button
 - Copy Magnet URI removed, no longer provided by Torrentz2.eu

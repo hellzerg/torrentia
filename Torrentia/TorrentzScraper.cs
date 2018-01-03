@@ -8,6 +8,8 @@ namespace Torrentia
 {
     public class TorrentzScraper
     {
+        string _blockLancerMessage = "<p class=generic>Make Censorship-free Freelancing a reality -> Support <a href=\"https://blocklancer.net/\">Blocklancer</a></p>";
+
         string _BaseUrl = "https://torrentz2.eu";
         string _SearchUrl = "https://torrentz2.eu/search?f=";
         string _VerifiedUrl = "https://torrentz2.eu/verified?f=";
@@ -76,7 +78,7 @@ namespace Torrentia
                 if (!VerifiedOnly && !AdultFilter) { _Response = _Client.DownloadString(_SearchUrl + _Term + _AdultFilterDisabledPostFix); }
             }
 
-            _Document.LoadHtml(_Response);
+            _Document.LoadHtml(_Response.Replace(_blockLancerMessage, string.Empty));
 
             RemoveAds(); 
 
