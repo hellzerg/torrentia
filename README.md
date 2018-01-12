@@ -13,6 +13,9 @@ Simple torrentz2.eu scraper
 ## Downloads: ##
 https://github.com/hellzerg/torrentia/releases
 
+## Screenshots: ##
+https://github.com/hellzerg/torrentia/blob/master/IMAGES.md
+
 ## Compatibility: ##
 
 .NET Framework 4.5.2
