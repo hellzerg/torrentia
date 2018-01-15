@@ -122,14 +122,14 @@
             this.lblHash.ForeColor = System.Drawing.Color.DodgerBlue;
             this.lblHash.Location = new System.Drawing.Point(4, 365);
             this.lblHash.Name = "lblHash";
-            this.lblHash.Size = new System.Drawing.Size(69, 28);
+            this.lblHash.Size = new System.Drawing.Size(112, 28);
             this.lblHash.TabIndex = 81;
             this.lblHash.Tag = "themeable";
-            this.lblHash.Text = "Hash: ";
+            this.lblHash.Text = "Info Hash: ";
             // 
             // btnDownload
             // 
-            this.btnDownload.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnDownload.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnDownload.BackColor = System.Drawing.Color.DodgerBlue;
             this.btnDownload.FlatAppearance.BorderColor = System.Drawing.Color.DodgerBlue;
             this.btnDownload.FlatAppearance.MouseDownBackColor = System.Drawing.Color.RoyalBlue;
@@ -147,7 +147,7 @@
             // 
             // btnCopyHash
             // 
-            this.btnCopyHash.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnCopyHash.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnCopyHash.BackColor = System.Drawing.Color.DodgerBlue;
             this.btnCopyHash.FlatAppearance.BorderColor = System.Drawing.Color.DodgerBlue;
             this.btnCopyHash.FlatAppearance.MouseDownBackColor = System.Drawing.Color.RoyalBlue;

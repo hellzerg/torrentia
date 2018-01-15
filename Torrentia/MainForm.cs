@@ -8,11 +8,18 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Diagnostics;
+using System.Net;
 
 namespace Torrentia
 {
     public partial class MainForm : Form
     {
+        readonly string _latestVersionLink = "https://raw.githubusercontent.com/hellzerg/torrentia/master/version.txt";
+        readonly string _releasesLink = "https://github.com/hellzerg/torrentia/releases";
+
+        readonly string _noNewVersionMessage = "You already have the latest version!";
+        readonly string _betaVersionMessage = "You are using an experimental version!";
+
         TorrentzScraper _scraper;
         List<SearchResult> results;
 
@@ -40,6 +47,52 @@ namespace Torrentia
 
             checkBox1.Checked = Options.CurrentOptions.VerifiedOnly;
             checkBox2.Checked = Options.CurrentOptions.AdultFilter;
+        }
+
+        private string NewVersionMessage(string latest)
+        {
+            return string.Format("There is a new version available!\n\nLatest version: {0}\nCurrent version: {1}\n\nDo you want to download it now?", latest, Program.GetCurrentVersionToString());
+        }
+
+        private void CheckForUpdate()
+        {
+            WebClient client = new WebClient
+            {
+                Encoding = Encoding.UTF8
+            };
+
+            string latestVersion = string.Empty;
+            try
+            {
+                latestVersion = client.DownloadString(_latestVersionLink);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+
+            if (!string.IsNullOrEmpty(latestVersion))
+            {
+                if (float.Parse(latestVersion) > Program.GetCurrentVersion())
+                {
+                    if (MessageBox.Show(NewVersionMessage(latestVersion), "Update available", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                    {
+                        try
+                        {
+                            Process.Start(_releasesLink);
+                        }
+                        catch { }
+                    }
+                }
+                else if (float.Parse(latestVersion) == Program.GetCurrentVersion())
+                {
+                    MessageBox.Show(_noNewVersionMessage, "No update available", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                else
+                {
+                    MessageBox.Show(_betaVersionMessage, "No update available", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
         }
 
         private void RestoreWindowState()
@@ -103,7 +156,7 @@ namespace Torrentia
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "Torrentia", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show(ex.StackTrace, "Torrentia", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
 
             if (results != null)
@@ -224,6 +277,11 @@ namespace Torrentia
 
             // Perform the sort with these new sort options.
             listResults.Sort();
+        }
+
+        private void btnUpdate_Click(object sender, EventArgs e)
+        {
+            CheckForUpdate();
         }
     }
 }

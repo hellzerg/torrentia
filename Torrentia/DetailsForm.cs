@@ -135,7 +135,7 @@ namespace Torrentia
         {
             try
             {
-                Clipboard.SetText(lblHash.Text.Replace("Hash: ", string.Empty), TextDataFormat.Text);
+                Clipboard.SetText(lblHash.Text.Replace("Info Hash: ", string.Empty), TextDataFormat.Text);
             }
             catch { }
         }

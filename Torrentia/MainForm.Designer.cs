@@ -43,6 +43,7 @@
             this.checkBox2 = new System.Windows.Forms.CheckBox();
             this.btnOptions = new System.Windows.Forms.Button();
             this.btnAbout = new System.Windows.Forms.Button();
+            this.btnUpdate = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // txtSearch
@@ -55,7 +56,7 @@
             this.txtSearch.ForeColor = System.Drawing.Color.White;
             this.txtSearch.Location = new System.Drawing.Point(12, 12);
             this.txtSearch.Name = "txtSearch";
-            this.txtSearch.Size = new System.Drawing.Size(757, 34);
+            this.txtSearch.Size = new System.Drawing.Size(666, 34);
             this.txtSearch.TabIndex = 0;
             // 
             // btnSearch
@@ -68,7 +69,7 @@
             this.btnSearch.FlatAppearance.MouseOverBackColor = System.Drawing.Color.RoyalBlue;
             this.btnSearch.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnSearch.ForeColor = System.Drawing.Color.White;
-            this.btnSearch.Location = new System.Drawing.Point(775, 12);
+            this.btnSearch.Location = new System.Drawing.Point(684, 12);
             this.btnSearch.Name = "btnSearch";
             this.btnSearch.Size = new System.Drawing.Size(86, 34);
             this.btnSearch.TabIndex = 74;
@@ -97,7 +98,7 @@
             this.listResults.MultiSelect = false;
             this.listResults.Name = "listResults";
             this.listResults.ShowGroups = false;
-            this.listResults.Size = new System.Drawing.Size(1033, 517);
+            this.listResults.Size = new System.Drawing.Size(1034, 517);
             this.listResults.TabIndex = 75;
             this.listResults.UseCompatibleStateImageBehavior = false;
             this.listResults.View = System.Windows.Forms.View.Details;
@@ -186,7 +187,7 @@
             this.btnOptions.FlatAppearance.MouseOverBackColor = System.Drawing.Color.RoyalBlue;
             this.btnOptions.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnOptions.ForeColor = System.Drawing.Color.White;
-            this.btnOptions.Location = new System.Drawing.Point(867, 12);
+            this.btnOptions.Location = new System.Drawing.Point(776, 12);
             this.btnOptions.Name = "btnOptions";
             this.btnOptions.Size = new System.Drawing.Size(86, 34);
             this.btnOptions.TabIndex = 79;
@@ -205,7 +206,7 @@
             this.btnAbout.FlatAppearance.MouseOverBackColor = System.Drawing.Color.RoyalBlue;
             this.btnAbout.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnAbout.ForeColor = System.Drawing.Color.White;
-            this.btnAbout.Location = new System.Drawing.Point(959, 12);
+            this.btnAbout.Location = new System.Drawing.Point(960, 12);
             this.btnAbout.Name = "btnAbout";
             this.btnAbout.Size = new System.Drawing.Size(86, 34);
             this.btnAbout.TabIndex = 80;
@@ -214,13 +215,33 @@
             this.btnAbout.UseVisualStyleBackColor = false;
             this.btnAbout.Click += new System.EventHandler(this.btnAbout_Click);
             // 
+            // btnUpdate
+            // 
+            this.btnUpdate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnUpdate.BackColor = System.Drawing.Color.DodgerBlue;
+            this.btnUpdate.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.btnUpdate.FlatAppearance.BorderColor = System.Drawing.Color.DodgerBlue;
+            this.btnUpdate.FlatAppearance.MouseDownBackColor = System.Drawing.Color.RoyalBlue;
+            this.btnUpdate.FlatAppearance.MouseOverBackColor = System.Drawing.Color.RoyalBlue;
+            this.btnUpdate.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnUpdate.ForeColor = System.Drawing.Color.White;
+            this.btnUpdate.Location = new System.Drawing.Point(868, 12);
+            this.btnUpdate.Name = "btnUpdate";
+            this.btnUpdate.Size = new System.Drawing.Size(86, 34);
+            this.btnUpdate.TabIndex = 81;
+            this.btnUpdate.Tag = "themeable";
+            this.btnUpdate.Text = "Update";
+            this.btnUpdate.UseVisualStyleBackColor = false;
+            this.btnUpdate.Click += new System.EventHandler(this.btnUpdate_Click);
+            // 
             // MainForm
             // 
             this.AcceptButton = this.btnSearch;
             this.AutoScaleDimensions = new System.Drawing.SizeF(120F, 120F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
-            this.ClientSize = new System.Drawing.Size(1057, 639);
+            this.ClientSize = new System.Drawing.Size(1058, 639);
+            this.Controls.Add(this.btnUpdate);
             this.Controls.Add(this.btnAbout);
             this.Controls.Add(this.btnOptions);
             this.Controls.Add(this.checkBox2);
@@ -257,6 +278,7 @@
         private System.Windows.Forms.CheckBox checkBox2;
         private System.Windows.Forms.Button btnOptions;
         private System.Windows.Forms.Button btnAbout;
+        private System.Windows.Forms.Button btnUpdate;
     }
 }
 
