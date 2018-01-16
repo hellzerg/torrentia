@@ -116,7 +116,7 @@ namespace Torrentia
 
             foreach (string x in _result.Trackers)
             {
-                result += string.Format("&tr={0}", x.Replace("/", "%2F").Replace(":", "%3A"));
+                result += string.Format("&dn={0}&tr={1}", _result.Title, x.Replace("/", "%2F").Replace(":", "%3A"));
             }
 
             return result;
