@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Diagnostics;
 using System.Net;
+using System.Net.NetworkInformation;
 
 namespace Torrentia
 {
@@ -47,6 +48,16 @@ namespace Torrentia
 
             checkBox1.Checked = Options.CurrentOptions.VerifiedOnly;
             checkBox2.Checked = Options.CurrentOptions.AdultFilter;
+
+            if (!IsInternetAvailable())
+            {
+                MessageBox.Show("No internet connection were found!", "Information", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            }
+        }
+
+        private bool IsInternetAvailable()
+        {
+            return NetworkInterface.GetIsNetworkAvailable();
         }
 
         private string NewVersionMessage(string latest)
@@ -156,7 +167,7 @@ namespace Torrentia
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.StackTrace, "Torrentia", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show(ex.Message, "Torrentia", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
 
             if (results != null)
