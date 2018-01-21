@@ -16,7 +16,7 @@ namespace Torrentia
 
         // Enter current version here
         internal readonly static float Major = 2;
-        internal readonly static float Minor = 3;
+        internal readonly static float Minor = 4;
 
         /* END OF VERSION PROPERTIES */
 

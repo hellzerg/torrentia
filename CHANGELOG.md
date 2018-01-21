@@ -2,6 +2,9 @@
 
 All notable changes to this project will be documented in this file.
 
+## [2.4] - 2018-01-21
+- Added torrent name in magnet URL
+
 ## [2.3] - 2018-01-15
 - Again, Fix: 'The remote name could not be resolved' error
 - Added: Check for new versions
