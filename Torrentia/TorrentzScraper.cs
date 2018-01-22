@@ -8,143 +8,143 @@ namespace Torrentia
 {
     public class TorrentzScraper
     {
-        string _BaseUrl = "https://torrentz2.eu";
-        string _SearchUrl = "https://torrentz2.eu/search?f=";
-        string _VerifiedUrl = "https://torrentz2.eu/verified?f=";
-        string _AdultFilterEnabledPostFix = "&safe=1";
-        string _AdultFilterDisabledPostFix = "&safe=0";
-        char _VerifiedChar = '✓';
-        string _MagnetPrefix = "magnet";
-        string _Term = string.Empty;
-        string _Response = string.Empty;
-        WebClient _Client;
-        List<string> _Results;
-        List<string> _TorrentDetails;
-        List<SearchResult> _SearchResults;
-        HtmlAgilityPack.HtmlDocument _Document = new HtmlAgilityPack.HtmlDocument();
-        SearchResult SearchResult;
-        List<string> torrentDates;
-        List<string> torrentLinks;
-        //List<string> trackerLinks;
-        string _TorrentTitle = string.Empty;
-        string _TorrentContents = string.Empty;
-        string _TorrentSize = string.Empty;
-        string _TorrentSeeders = string.Empty;
-        string _TorrentLeechers = string.Empty;
-        string _TorrentVerified = string.Empty;
-        string _Url = string.Empty;
-        string _MagnetUri = string.Empty;
+        string _baseUrl = "https://torrentz2.eu";
+        string _searchUrl = "https://torrentz2.eu/search?f=";
+        string _verifiedUrl = "https://torrentz2.eu/verified?f=";
+        string _adultFilterEnabledPostFix = "&safe=1";
+        string _adultFilterDisabledPostFix = "&safe=0";
+        char _verifiedChar = '✓';
+        string _magnetPrefix = "magnet";
+        string _term = string.Empty;
+        string _response = string.Empty;
+        WebClient _client;
+        List<string> _results;
+        List<string> _torrentDetails;
+        List<TorrentzResult> _searchResults;
+        HtmlAgilityPack.HtmlDocument _document = new HtmlAgilityPack.HtmlDocument();
+        TorrentzResult _searchResult;
+        List<string> _torrentDates;
+        List<string> _torrentLinks;
+        //List<string> _trackerLinks;
+        string _torrentTitle = string.Empty;
+        string _torrentContents = string.Empty;
+        string _torrentSize = string.Empty;
+        string _torrentSeeders = string.Empty;
+        string _torrentLeechers = string.Empty;
+        string _torrentVerified = string.Empty;
+        string _url = string.Empty;
+        string _magnetUri = string.Empty;
 
         public bool AdultFilter { get; set; }
         public bool VerifiedOnly { get; set; }
 
         public TorrentzScraper()
         {
-            _Client = new WebClient();
-            _Client.Encoding = Encoding.UTF8;
+            _client = new WebClient();
+            _client.Encoding = Encoding.UTF8;
             AdultFilter = true;
             VerifiedOnly = false;
         }
 
         public TorrentzScraper(string term)
         {
-            _Term = term;
-            _Client = new WebClient();
-            _Client.Encoding = Encoding.UTF8;
+            _term = term;
+            _client = new WebClient();
+            _client.Encoding = Encoding.UTF8;
             AdultFilter = true;
             VerifiedOnly = false;
         }
 
-        public List<SearchResult> Search(string term = null)
+        public List<TorrentzResult> Search(string term = null)
         {
-            _SearchResults = new List<SearchResult>();
-            _Results = new List<string>();
-            _TorrentDetails = new List<string>();
+            _searchResults = new List<TorrentzResult>();
+            _results = new List<string>();
+            _torrentDetails = new List<string>();
 
             if (!string.IsNullOrEmpty(term))
             {
-                if (VerifiedOnly && AdultFilter) { _Response = _Client.DownloadString(_VerifiedUrl + term + _AdultFilterEnabledPostFix); }
-                if (VerifiedOnly && !AdultFilter) { _Response = _Client.DownloadString(_VerifiedUrl + term + _AdultFilterDisabledPostFix); }
-                if (!VerifiedOnly && AdultFilter) { _Response = _Client.DownloadString(_SearchUrl + term + _AdultFilterEnabledPostFix); }
-                if (!VerifiedOnly && !AdultFilter) { _Response = _Client.DownloadString(_SearchUrl + term + _AdultFilterDisabledPostFix); }
+                if (VerifiedOnly && AdultFilter) { _response = _client.DownloadString(_verifiedUrl + term + _adultFilterEnabledPostFix); }
+                if (VerifiedOnly && !AdultFilter) { _response = _client.DownloadString(_verifiedUrl + term + _adultFilterDisabledPostFix); }
+                if (!VerifiedOnly && AdultFilter) { _response = _client.DownloadString(_searchUrl + term + _adultFilterEnabledPostFix); }
+                if (!VerifiedOnly && !AdultFilter) { _response = _client.DownloadString(_searchUrl + term + _adultFilterDisabledPostFix); }
             }
             else
             {
-                if (VerifiedOnly && AdultFilter) { _Response = _Client.DownloadString(_VerifiedUrl + _Term + _AdultFilterEnabledPostFix); }
-                if (VerifiedOnly && !AdultFilter) { _Response = _Client.DownloadString(_VerifiedUrl + _Term + _AdultFilterDisabledPostFix); }
-                if (!VerifiedOnly && AdultFilter) { _Response = _Client.DownloadString(_SearchUrl + _Term + _AdultFilterEnabledPostFix); }
-                if (!VerifiedOnly && !AdultFilter) { _Response = _Client.DownloadString(_SearchUrl + _Term + _AdultFilterDisabledPostFix); }
+                if (VerifiedOnly && AdultFilter) { _response = _client.DownloadString(_verifiedUrl + _term + _adultFilterEnabledPostFix); }
+                if (VerifiedOnly && !AdultFilter) { _response = _client.DownloadString(_verifiedUrl + _term + _adultFilterDisabledPostFix); }
+                if (!VerifiedOnly && AdultFilter) { _response = _client.DownloadString(_searchUrl + _term + _adultFilterEnabledPostFix); }
+                if (!VerifiedOnly && !AdultFilter) { _response = _client.DownloadString(_searchUrl + _term + _adultFilterDisabledPostFix); }
             }
 
-            _Document.LoadHtml(_Response);
+            _document.LoadHtml(_response);
 
             RemoveAds(); 
 
-            var links = _Document.DocumentNode.SelectNodes("//a[@href]");
-            var ddNodes = _Document.DocumentNode.SelectNodes("//dd");
+            var links = _document.DocumentNode.SelectNodes("//a[@href]");
+            var ddNodes = _document.DocumentNode.SelectNodes("//dd");
 
             if (links != null)
             {
                 foreach (var link in links)
                 {
-                    _Results.Add(link.GetAttributeValue("href", string.Empty));
+                    _results.Add(link.GetAttributeValue("href", string.Empty));
                 }
             }
             if (ddNodes != null)
             {
                 foreach (var dd in ddNodes)
                 {
-                    _TorrentDetails.Add(SanitizeTorrentDetails(dd.InnerHtml));
+                    _torrentDetails.Add(SanitizeTorrentDetails(dd.InnerHtml));
                 }
             }
 
-            FilterResults(ref _Results);
+            FilterResults(ref _results);
 
             int counter = 0;
-            foreach (string s in _Results)
+            foreach (string s in _results)
             {
-                _SearchResults.Add(GetSearchResult(s, _TorrentDetails[counter++]));
+                _searchResults.Add(GetSearchResult(s, _torrentDetails[counter++]));
             }
 
-            return _SearchResults;
+            return _searchResults;
         }
 
-        private SearchResult GetSearchResult(string hash, string details)
+        private TorrentzResult GetSearchResult(string hash, string details)
         {
             string[] tmpArray = details.Split('|');
 
-            SearchResult = new SearchResult();
-            SearchResult.Trackers = new List<string>();
-            torrentDates = new List<string>();
-            torrentLinks = new List<string>();
+            _searchResult = new TorrentzResult();
+            _searchResult.Trackers = new List<string>();
+            _torrentDates = new List<string>();
+            _torrentLinks = new List<string>();
             //trackerLinks = new List<string>();
-            _TorrentTitle = string.Empty;
-            _TorrentContents = string.Empty;
-            _TorrentSize = string.Empty;
-            _TorrentSeeders = string.Empty;
-            _TorrentLeechers = string.Empty;
+            _torrentTitle = string.Empty;
+            _torrentContents = string.Empty;
+            _torrentSize = string.Empty;
+            _torrentSeeders = string.Empty;
+            _torrentLeechers = string.Empty;
 
-            SearchResult.InfoHash = hash.Replace("/", string.Empty);
+            _searchResult.InfoHash = hash.Replace("/", string.Empty);
 
-            if (tmpArray[0] == _VerifiedChar.ToString())
+            if (tmpArray[0] == _verifiedChar.ToString())
             {
-                _TorrentVerified = string.Format("[{0}]", _VerifiedChar);
+                _torrentVerified = string.Format("[{0}]", _verifiedChar);
             }
             else
             {
-                _TorrentVerified = "[-]";
+                _torrentVerified = "[-]";
             }
-            _TorrentSize = tmpArray[2];
-            _TorrentSeeders = tmpArray[3];
-            _TorrentLeechers = tmpArray[4];
+            _torrentSize = tmpArray[2];
+            _torrentSeeders = tmpArray[3];
+            _torrentLeechers = tmpArray[4];
 
-            _Document = new HtmlAgilityPack.HtmlDocument();
-            _Response = _Client.DownloadString(_BaseUrl + hash);
-            _Document.LoadHtml(_Response);
+            _document = new HtmlAgilityPack.HtmlDocument();
+            _response = _client.DownloadString(_baseUrl + hash);
+            _document.LoadHtml(_response);
 
-            var downloadNode = _Document.DocumentNode.SelectSingleNode("//div[@class='downlinks']");
-            var trackersNode = _Document.DocumentNode.SelectSingleNode("//div[@class='trackers']");
-            var filesNode = _Document.DocumentNode.SelectSingleNode("//div[@class='files']");
+            var downloadNode = _document.DocumentNode.SelectSingleNode("//div[@class='downlinks']");
+            var trackersNode = _document.DocumentNode.SelectSingleNode("//div[@class='trackers']");
+            var filesNode = _document.DocumentNode.SelectSingleNode("//div[@class='files']");
 
             if (downloadNode != null)
             {
@@ -156,14 +156,14 @@ namespace Torrentia
                 {
                     foreach (var d in datesNode)
                     {
-                        torrentDates.Add(d.InnerHtml.Trim());
+                        _torrentDates.Add(d.InnerHtml.Trim());
                     }
                 }
                 if (titleNode != null)
                 {
                     string[] tmp = titleNode.InnerHtml.Split(new string[] { "</span>" }, StringSplitOptions.RemoveEmptyEntries);
                     tmp[0] = tmp[0].Replace("<span>", string.Empty);
-                    _TorrentTitle = tmp[0].Trim();
+                    _torrentTitle = tmp[0].Trim();
                 }
                 if (dtNode != null)
                 {
@@ -177,9 +177,9 @@ namespace Torrentia
                         {
                             foreach (var c in linkNode)
                             {
-                                if (!torrentLinks.Contains(c.GetAttributeValue("href", string.Empty)))
+                                if (!_torrentLinks.Contains(c.GetAttributeValue("href", string.Empty)))
                                 {
-                                    torrentLinks.Add(c.GetAttributeValue("href", string.Empty));
+                                    _torrentLinks.Add(c.GetAttributeValue("href", string.Empty));
                                 }
                             }
                             //FilterResults(ref torrentLinks);
@@ -201,17 +201,17 @@ namespace Torrentia
                     }
                 }
 
-                SearchResult.Dates = torrentDates;
-                SearchResult.Age = torrentDates[0];
-                SearchResult.Links = torrentLinks;
-                SearchResult.Title = _TorrentTitle;
-                SearchResult.Dates.Remove(SearchResult.Dates.Last());
+                _searchResult.Dates = _torrentDates;
+                _searchResult.Age = _torrentDates[0];
+                _searchResult.Links = _torrentLinks;
+                _searchResult.Title = _torrentTitle;
+                _searchResult.Dates.Remove(_searchResult.Dates.Last());
                 //SearchResult.Dates.Remove(SearchResult.Dates.First());
                 //SearchResult.Trackers = trackerLinks;
-                SearchResult.Leechers = _TorrentLeechers;
-                SearchResult.Seeders = _TorrentSeeders;
-                SearchResult.Size = _TorrentSize;
-                SearchResult.Verified = _TorrentVerified;
+                _searchResult.Leechers = _torrentLeechers;
+                _searchResult.Seeders = _torrentSeeders;
+                _searchResult.Size = _torrentSize;
+                _searchResult.Verified = _torrentVerified;
             }
 
             if (trackersNode != null)
@@ -222,7 +222,7 @@ namespace Torrentia
                 {
                     foreach (var dt in dtNodes)
                     {
-                        if (dt.InnerText.Contains("://")) SearchResult.Trackers.Add(dt.InnerText.Trim());
+                        if (dt.InnerText.Contains("://")) _searchResult.Trackers.Add(dt.InnerText.Trim());
                     }
                 }
             }
@@ -235,35 +235,35 @@ namespace Torrentia
                 {
                     foreach (var li in liNodes)
                     {
-                        _TorrentContents = SanitizeTorrentContents(li.InnerHtml);
+                        _torrentContents = SanitizeTorrentContents(li.InnerHtml);
                         break;
                     }
                 }
             }
 
-            SearchResult.Contents = _TorrentContents;
-            return SearchResult;
+            _searchResult.Contents = _torrentContents;
+            return _searchResult;
         }
 
         public string GetMagnetUri(string url)
         {
-            _Url = url;
+            _url = url;
             string tmp = string.Empty;
 
-            if (!string.IsNullOrEmpty(_Url))
+            if (!string.IsNullOrEmpty(_url))
             {
-                _Response = _Client.DownloadString(_Url);
+                _response = _client.DownloadString(_url);
             }
 
-            _Document = new HtmlAgilityPack.HtmlDocument();
-            _Document.LoadHtml(_Response);
+            _document = new HtmlAgilityPack.HtmlDocument();
+            _document.LoadHtml(_response);
 
-            var magnetNode = _Document.DocumentNode.SelectNodes("//a[@href]");
+            var magnetNode = _document.DocumentNode.SelectNodes("//a[@href]");
             if (magnetNode != null)
             {
                 foreach (var node in magnetNode)
                 {
-                    if (node.GetAttributeValue("href", string.Empty).StartsWith(_MagnetPrefix))
+                    if (node.GetAttributeValue("href", string.Empty).StartsWith(_magnetPrefix))
                     {
                         tmp = node.GetAttributeValue("href", string.Empty);
                         break;
@@ -273,10 +273,10 @@ namespace Torrentia
 
             if (!string.IsNullOrEmpty(tmp))
             {
-                _MagnetUri = tmp;
+                _magnetUri = tmp;
             }
 
-            return _MagnetUri;
+            return _magnetUri;
         }
 
         private void FilterResults(ref List<string> list)
@@ -322,7 +322,7 @@ namespace Torrentia
             {
                 try
                 {
-                    nodesFound = _Document.DocumentNode.SelectNodes(x).ToList();
+                    nodesFound = _document.DocumentNode.SelectNodes(x).ToList();
                     foreach (var y in nodesFound)
                     {
                         y.Remove();

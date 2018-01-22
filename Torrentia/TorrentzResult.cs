@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Torrentia
 {
-    public class SearchResult
+    public class TorrentzResult
     {
         public string Title { get; set; }
         public string InfoHash { get; set; }

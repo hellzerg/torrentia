@@ -9,6 +9,7 @@ Simple torrentz2.eu scraper
 * Hide adult torrents filter
 * Get trackers list and torrent contents by double-clicking
 * Download available
+* Track scene releases realtime (RSS)
 
 ## Downloads: ##
 https://github.com/hellzerg/torrentia/releases
@@ -28,6 +29,6 @@ Does not work with Windows XP or Vista or Windows Server 2003
 
 ## Details: ##
 
-Latest version: 2.4
+Latest version: 2.5
 
-Released: January 21, 2018
+Released: January 22, 2018

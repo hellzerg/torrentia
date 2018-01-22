@@ -13,11 +13,11 @@ namespace Torrentia
 {
     public partial class DetailsForm : Form
     {
-        SearchResult _result;
+        TorrentzResult _result;
         TorrentzScraper _scraper = new TorrentzScraper();
         //string _magnet = string.Empty;
 
-        public DetailsForm(SearchResult sr)
+        public DetailsForm(TorrentzResult sr)
         {
             InitializeComponent();
             Options.ApplyTheme(this);
@@ -76,8 +76,8 @@ namespace Torrentia
                 listResults.Items.Add(item);
             }
 
-            listResults.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
-            listResults.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
+            //listResults.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
+            //listResults.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
         }
 
         private void listResults_MouseDoubleClick(object sender, MouseEventArgs e)

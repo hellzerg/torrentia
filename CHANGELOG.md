@@ -2,6 +2,9 @@
 
 All notable changes to this project will be documented in this file.
 
+## [2.5] - 2018-01-22
+- Added RSS: track scene releases in realtime
+
 ## [2.4] - 2018-01-21
 - Added torrent name in magnet URL
 

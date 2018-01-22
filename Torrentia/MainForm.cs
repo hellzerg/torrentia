@@ -22,7 +22,7 @@ namespace Torrentia
         readonly string _betaVersionMessage = "You are using an experimental version!";
 
         TorrentzScraper _scraper;
-        List<SearchResult> results;
+        List<TorrentzResult> results;
 
         List<ListViewItem> _items;
         ListViewItem _item;
@@ -143,7 +143,6 @@ namespace Torrentia
             {
                 lblStatus.Text = _searchingStatus;
                 lblStatus.Visible = true;
-                btnSearch.Enabled = false;
                 txtSearch.Enabled = false;
                 checkBox1.Enabled = false;
                 checkBox2.Enabled = false;
@@ -173,7 +172,7 @@ namespace Torrentia
             if (results != null)
             {
                 _items = new List<ListViewItem>();
-                foreach (SearchResult x in results)
+                foreach (TorrentzResult x in results)
                 {
                     _item = new ListViewItem(x.Verified);
                     _item.SubItems.Add(x.Title);
@@ -202,7 +201,6 @@ namespace Torrentia
                 lblStatus.Visible = true;
             }
 
-            btnSearch.Enabled = true;
             txtSearch.Enabled = true;
             checkBox1.Enabled = true;
             checkBox2.Enabled = true;
@@ -213,12 +211,6 @@ namespace Torrentia
             RestoreWindowState();
 
             this.Text += Program.GetCurrentVersionToString();
-            txtSearch.Focus();
-        }
-
-        private void btnSearch_Click(object sender, EventArgs e)
-        {
-            StartSearching();
             txtSearch.Focus();
         }
 
@@ -293,6 +285,21 @@ namespace Torrentia
         private void btnUpdate_Click(object sender, EventArgs e)
         {
             CheckForUpdate();
+        }
+
+        private void btnFeed_Click(object sender, EventArgs e)
+        {
+            RssForm f = new RssForm();
+            f.Show();
+        }
+
+        private void txtSearch_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                StartSearching();
+                txtSearch.Focus();
+            }
         }
     }
 }

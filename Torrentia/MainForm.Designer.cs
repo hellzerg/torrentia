@@ -30,7 +30,6 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.txtSearch = new System.Windows.Forms.TextBox();
-            this.btnSearch = new System.Windows.Forms.Button();
             this.listResults = new System.Windows.Forms.ListView();
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -44,6 +43,7 @@
             this.btnOptions = new System.Windows.Forms.Button();
             this.btnAbout = new System.Windows.Forms.Button();
             this.btnUpdate = new System.Windows.Forms.Button();
+            this.btnFeed = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // txtSearch
@@ -56,27 +56,9 @@
             this.txtSearch.ForeColor = System.Drawing.Color.White;
             this.txtSearch.Location = new System.Drawing.Point(12, 12);
             this.txtSearch.Name = "txtSearch";
-            this.txtSearch.Size = new System.Drawing.Size(666, 34);
+            this.txtSearch.Size = new System.Drawing.Size(710, 34);
             this.txtSearch.TabIndex = 0;
-            // 
-            // btnSearch
-            // 
-            this.btnSearch.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnSearch.BackColor = System.Drawing.Color.DodgerBlue;
-            this.btnSearch.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnSearch.FlatAppearance.BorderColor = System.Drawing.Color.DodgerBlue;
-            this.btnSearch.FlatAppearance.MouseDownBackColor = System.Drawing.Color.RoyalBlue;
-            this.btnSearch.FlatAppearance.MouseOverBackColor = System.Drawing.Color.RoyalBlue;
-            this.btnSearch.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnSearch.ForeColor = System.Drawing.Color.White;
-            this.btnSearch.Location = new System.Drawing.Point(684, 12);
-            this.btnSearch.Name = "btnSearch";
-            this.btnSearch.Size = new System.Drawing.Size(86, 34);
-            this.btnSearch.TabIndex = 74;
-            this.btnSearch.Tag = "themeable";
-            this.btnSearch.Text = "Search";
-            this.btnSearch.UseVisualStyleBackColor = false;
-            this.btnSearch.Click += new System.EventHandler(this.btnSearch_Click);
+            this.txtSearch.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtSearch_KeyDown);
             // 
             // listResults
             // 
@@ -187,9 +169,9 @@
             this.btnOptions.FlatAppearance.MouseOverBackColor = System.Drawing.Color.RoyalBlue;
             this.btnOptions.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnOptions.ForeColor = System.Drawing.Color.White;
-            this.btnOptions.Location = new System.Drawing.Point(776, 12);
+            this.btnOptions.Location = new System.Drawing.Point(809, 12);
             this.btnOptions.Name = "btnOptions";
-            this.btnOptions.Size = new System.Drawing.Size(86, 34);
+            this.btnOptions.Size = new System.Drawing.Size(75, 34);
             this.btnOptions.TabIndex = 79;
             this.btnOptions.Tag = "themeable";
             this.btnOptions.Text = "Options";
@@ -206,9 +188,9 @@
             this.btnAbout.FlatAppearance.MouseOverBackColor = System.Drawing.Color.RoyalBlue;
             this.btnAbout.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnAbout.ForeColor = System.Drawing.Color.White;
-            this.btnAbout.Location = new System.Drawing.Point(960, 12);
+            this.btnAbout.Location = new System.Drawing.Point(971, 12);
             this.btnAbout.Name = "btnAbout";
-            this.btnAbout.Size = new System.Drawing.Size(86, 34);
+            this.btnAbout.Size = new System.Drawing.Size(75, 34);
             this.btnAbout.TabIndex = 80;
             this.btnAbout.Tag = "themeable";
             this.btnAbout.Text = "About";
@@ -225,22 +207,41 @@
             this.btnUpdate.FlatAppearance.MouseOverBackColor = System.Drawing.Color.RoyalBlue;
             this.btnUpdate.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnUpdate.ForeColor = System.Drawing.Color.White;
-            this.btnUpdate.Location = new System.Drawing.Point(868, 12);
+            this.btnUpdate.Location = new System.Drawing.Point(890, 12);
             this.btnUpdate.Name = "btnUpdate";
-            this.btnUpdate.Size = new System.Drawing.Size(86, 34);
+            this.btnUpdate.Size = new System.Drawing.Size(75, 34);
             this.btnUpdate.TabIndex = 81;
             this.btnUpdate.Tag = "themeable";
             this.btnUpdate.Text = "Update";
             this.btnUpdate.UseVisualStyleBackColor = false;
             this.btnUpdate.Click += new System.EventHandler(this.btnUpdate_Click);
             // 
+            // btnFeed
+            // 
+            this.btnFeed.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnFeed.BackColor = System.Drawing.Color.DodgerBlue;
+            this.btnFeed.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.btnFeed.FlatAppearance.BorderColor = System.Drawing.Color.DodgerBlue;
+            this.btnFeed.FlatAppearance.MouseDownBackColor = System.Drawing.Color.RoyalBlue;
+            this.btnFeed.FlatAppearance.MouseOverBackColor = System.Drawing.Color.RoyalBlue;
+            this.btnFeed.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnFeed.ForeColor = System.Drawing.Color.White;
+            this.btnFeed.Location = new System.Drawing.Point(728, 12);
+            this.btnFeed.Name = "btnFeed";
+            this.btnFeed.Size = new System.Drawing.Size(75, 34);
+            this.btnFeed.TabIndex = 82;
+            this.btnFeed.Tag = "themeable";
+            this.btnFeed.Text = "RSS";
+            this.btnFeed.UseVisualStyleBackColor = false;
+            this.btnFeed.Click += new System.EventHandler(this.btnFeed_Click);
+            // 
             // MainForm
             // 
-            this.AcceptButton = this.btnSearch;
             this.AutoScaleDimensions = new System.Drawing.SizeF(120F, 120F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
             this.ClientSize = new System.Drawing.Size(1058, 639);
+            this.Controls.Add(this.btnFeed);
             this.Controls.Add(this.btnUpdate);
             this.Controls.Add(this.btnAbout);
             this.Controls.Add(this.btnOptions);
@@ -248,7 +249,6 @@
             this.Controls.Add(this.checkBox1);
             this.Controls.Add(this.lblStatus);
             this.Controls.Add(this.listResults);
-            this.Controls.Add(this.btnSearch);
             this.Controls.Add(this.txtSearch);
             this.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ForeColor = System.Drawing.Color.White;
@@ -265,7 +265,6 @@
 
         #endregion
         private System.Windows.Forms.TextBox txtSearch;
-        private System.Windows.Forms.Button btnSearch;
         private System.Windows.Forms.ListView listResults;
         private System.Windows.Forms.ColumnHeader columnHeader1;
         private System.Windows.Forms.ColumnHeader columnHeader2;
@@ -279,6 +278,7 @@
         private System.Windows.Forms.Button btnOptions;
         private System.Windows.Forms.Button btnAbout;
         private System.Windows.Forms.Button btnUpdate;
+        private System.Windows.Forms.Button btnFeed;
     }
 }
 
