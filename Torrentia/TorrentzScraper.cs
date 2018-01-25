@@ -314,7 +314,7 @@ namespace Torrentia
 
         private void RemoveAds()
         {
-            string[] nodesToRemove = { "//div[@class='HalfRRRAcceptableAds']", "//div[@class='AcceptableTextAds']", "//div[@class='SimpleAcceptableTextAds']", "//div[@class='SemiAcceptableAds']", "//div[@class='HalfAcceptableAds']", "//div[@class='ads_box adskeeperWrap']", "//p[@class='generic']" };
+            string[] nodesToRemove = { "//div[@class='HalfRRRAcceptableAds']", "//div[@class='AcceptableTextAds']", "//div[@class='SimpleAcceptableTextAds']", "//div[@class='SemiAcceptableAds']", "//div[@class='HalfAcceptableAds']", "//div[@class='ads_box adskeeperWrap']", "//p[@class='generic']", "//p[@class='generi']" };
 
             IEnumerable<HtmlAgilityPack.HtmlNode> nodesFound;
 

@@ -101,7 +101,7 @@ namespace Torrentia
 
         private void l2_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            Process.Start("https://carcinos.eu/deadmoon");
+            Process.Start("https://elgaming.eu/deadmoon");
         }
 
         private void t1_Tick(object sender, EventArgs e)
