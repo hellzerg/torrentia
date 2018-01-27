@@ -2,6 +2,9 @@
 
 All notable changes to this project will be documented in this file.
 
+## [2.7] - 2018-01-27
+- Yet again, Fix: 'The remote name could not be resolved' error
+
 ## [2.6] - 2018-01-25
 - Yet again, Fix: 'The remote name could not be resolved' error
 
